@@ -7,6 +7,8 @@ export const Auth = () =>{
   return (target: any) => {
       // aqui é verificado se a pessoa pode acessar a página ou não
      target.prototype.ionViewCanEnter = function () {
+
+         // para pegar a instancia navCtrl
          let property =
              Object
                  .keys(this)
@@ -17,6 +19,7 @@ export const Auth = () =>{
              });
              return false;
          }
+
         let authService = appContainer().get(AuthService);
         return authService.check().then(isLogged => {
             if(!isLogged){

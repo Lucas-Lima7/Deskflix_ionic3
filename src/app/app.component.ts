@@ -8,6 +8,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../services/auth.service";
+import {ListPage} from "../pages/list/list.page";
+import {MySettingsPage} from "../pages/my-settings/my-settings";
 
 @Component({
   templateUrl: 'app.component.html'
@@ -19,7 +21,7 @@ export class AppComponent {
     pages: Array<{ title: string, component: any }>;
   user: any;
 
-  public appPages = [
+  /*public appPages = [
     {
         title: 'Login',
         url: '/login',
@@ -34,17 +36,27 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'MySettings',
+      url: '/my-settings',
+      icon: 'list'
     }
-  ];
+  ];*/
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private http: HttpClient,
     public auth: AuthService
   ) {
     this.initializeApp();
+
+    this.pages = [
+        {title: 'Home', component: HomePage},
+        {title: 'List', component: ListPage},
+        {title: 'MySettings', component: MySettingsPage},
+    ]
   }
 
   initializeApp() {
@@ -57,15 +69,23 @@ export class AppComponent {
     });
   }
 
-  logout(){
-    this.auth.logout().then(()=> {
-      alert('Logout Feito');
-    })
-  }
-
-    /*openPage(page) {
+    openPage(page) {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
-    }*/
+    }
+
+  logout(){
+    this.auth.logout().then(()=> {
+      this.nav.setRoot('Login');
+    }).catch(()=>{
+      this.nav.setRoot('Login');
+    })
+  }
+
+  goToMySettings(){
+    this.nav.setRoot('MySettingsPage')
+  }
+
+
 }

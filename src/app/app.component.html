@@ -2,9 +2,9 @@
       <ion-header>
         <ion-toolbar color="dark">
           <ion-title>DeskFlix - Menu</ion-title>
-          <ion-item color="dark">
-            <h2>{{user?.name}}</h2>
-          </ion-item>
+            <button ion-item menuClose color="dark" (click)="goToMySettings()">
+                <h2>{{user?.name}}</h2>
+            </button>
         </ion-toolbar>
       </ion-header>
 
@@ -29,10 +29,10 @@
       </ion-content>
 
       <ion-footer>
-        <button menuClose size="large" color="dark" expand="block" fill="clear" (click)="logout()">
-          Logout <ion-icon slot="end" name="exit"></ion-icon>
+        <button menuClose ion-button text-right large color="light" block clear icon-right (click)="logout()">
+          Logout <ion-icon name="exit"></ion-icon>
         </button>
       </ion-footer>
     </ion-menu>
-    <!--<ion-router-outlet main></ion-router-outlet>-->
+
     <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

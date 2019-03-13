@@ -5,6 +5,7 @@ import {IonicPage, MenuController, NavController, ToastController} from "ionic-a
 import {HomePage} from "../home/home";
 import {appContainer} from "../../app/app.container";
 import {Auth} from "../../decorators/auth.decorator";
+import {MySettingsPage} from "../my-settings/my-settings";
 
 @IonicPage()
 @Component({
@@ -49,19 +50,20 @@ export class Login{
 
     login() {
         this.auth.login(this.user)
-            .then(() => {
+            .subscribe(() => {
                 this.afterLogin();
-            })
-        .catch(() => {
-            this.afterLogin();
-            /*let toast = this.toastCtrl.create({
-                message: 'Email e/ou senha inválidos.',
-                duration: 3000,
-                position: 'top'
-            });
-            toast.present();*/
+            }, (error) => {
 
-        });
+                let toast = this.toastCtrl.create({
+                    message: 'Email e/ou senha inválidos.',
+                    duration: 3000,
+                    position: 'top',
+                    cssClass: 'toast-reverse'
+                });
+                toast.present();
+            });
+
+        //});
     /*this.jwtClient
         .accessToken({email: this.email, password:this.password})
         .then((token) =>{
@@ -71,8 +73,7 @@ export class Login{
 
     afterLogin() {
         this.menuCtrl.enable(true);
-        //this.navCtrl.push(HomePage);
-        this.navCtrl.push(HomePage);
+        this.navCtrl.push(MySettingsPage);
     }
 
     irParaHome(){

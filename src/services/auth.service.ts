@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {JwtClientService} from "./jwt-client.service";
 import {JwtPayload} from "../models/jwt-payload";
 
+import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class AuthService {
 
@@ -36,11 +39,14 @@ export class AuthService {
       })
   }
 
-  login({email, password}): Promise<Object> {
+  //login({email, password}): Promise<Object> {
+    login({email, password}): Observable<Object> {
     return this.jwtClient.accessToken({email, password})
-        .then(()=>{
+        .pipe( map(data => this.user() ))
+        /*.then(()=>{
           return this.user();
-        })
+        })*/
+
   }
 
   logout(){

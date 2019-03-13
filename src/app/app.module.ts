@@ -20,9 +20,10 @@ import {IonicStorageModule, Storage} from "@ionic/storage";
 import {JwtClientService} from "../services/jwt-client.service";
 import {AuthService} from "../services/auth.service";
 
-import {JwtModule, JWT_OPTIONS, JwtHelperService} from "@auth0/angular-jwt";
+import {JwtModule, JwtHelperService} from "@auth0/angular-jwt";
 import {IonicApp} from "ionic-angular";
-
+import { UserResource } from '../providers/resource/user-resource';
+import {MySettingsPage} from "../pages/my-settings/my-settings";
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -33,16 +34,19 @@ export function tokenGetter() {
       HomePage,
       ListPage,
       Login,
+      MySettingsPage,
   ],
   imports: [
       HttpClientModule,
     BrowserModule,
-    IonicModule.forRoot(AppComponent, {}/*, {
+    IonicModule.forRoot(AppComponent, {}, {
           links: [
               {component: Login, name: 'LoginPage', segment: 'login'},
               {component: HomePage, name: 'HomePage', segment: 'home'},
+              {component: MySettingsPage, name: 'MySettingsPage', segment: 'my-settings'},
+              {component: ListPage, name: 'ListPage', segment: 'list'},
           ]
-      }*/),
+      }),
     //AppRoutingModule,
 
       IonicStorageModule.forRoot({
@@ -66,6 +70,7 @@ export function tokenGetter() {
         HomePage,
         ListPage,
         Login,
+        MySettingsPage,
     ],
   providers: [
     StatusBar,
@@ -73,6 +78,7 @@ export function tokenGetter() {
       JwtClientService,
       JwtHelperService,
       AuthService,
+    UserResource,
    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     /*  {
           provide: AuthHttp,
