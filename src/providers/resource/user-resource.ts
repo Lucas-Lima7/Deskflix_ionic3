@@ -1,8 +1,10 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {AuthService} from "../../services/auth.service";
-import {Observable} from "../../../node_modules/rxjs/Observable";
+import {Observable} from "rxjs/Observable";
 import {tap} from "rxjs/operators";
+//import {} from "@auth0/angular-jwt"
+
 
 /*
   Generated class for the ResourceUserResourceProvider provider.
@@ -27,7 +29,7 @@ export class UserResource {
   }*/
 
   updatePassword({password, password_confirmation}): Observable<Object>{
-    return this.http.patch<any>('http://localhost:8000/user/settings', {password, password_confirmation})
+    return this.http.patch<any>('http://localhost:8000/api/user/settings', {password, password_confirmation})
         .pipe(
             tap(data=> {
                 let token = data.user;
